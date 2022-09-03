@@ -1,7 +1,9 @@
 # clint-eastwood
 
+![Clint Eastwood](img/clint.jpg)
+
 This repository is a demonstration of how to implement an
-object-oriented command line tool with tests in Python.
+object-oriented command line tool, with tests, in Python.
 
 
 ## Quick Start
