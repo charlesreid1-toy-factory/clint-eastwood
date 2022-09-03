@@ -4,6 +4,7 @@ Get back in the house
 import os
 import sys
 import json
+import random
 import logging
 import argparse
 

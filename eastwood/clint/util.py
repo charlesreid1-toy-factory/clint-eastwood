@@ -2,6 +2,7 @@ import os
 import sys
 import logging
 import traceback
+import subprocess
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
@@ -13,14 +14,13 @@ def polite_print(quiet, msg):
         print(msg)
 
 
-def run_cmd(self, cmd, cwd=os.getcwd(), shell=True):
+def run_cmd(cmd, cwd=os.getcwd(), shell=True):
     """Run a command and return stdout"""
     p = subprocess.Popen(cmd,
                          shell=shell,
                          stdout=subprocess.PIPE,
                          stderr=subprocess.PIPE,
-                         cwd=cwd,
-                         env=self.stage_env)
+                         cwd=cwd)
     stdout, stderr = p.communicate()
     if p.returncode != 0:
         raise RuntimeError(f'While running a command, an error occured:\n'

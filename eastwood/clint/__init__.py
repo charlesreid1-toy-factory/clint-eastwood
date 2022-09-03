@@ -107,7 +107,6 @@ MMMMMMMMb.         d8MM8tt8MM
         except SystemExit:
             pass
         except AttributeError:
-            # TODO: dump error message when executed in Lambda
             self.parser.print_help()
 
 dispatch = EastwoodOperationsCommandDispatch()
