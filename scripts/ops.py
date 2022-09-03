@@ -12,7 +12,7 @@ sys.path.insert(0, pkg_root)  # noqa
 import eastwood
 import eastwood.clint.think
 import eastwood.clint.water
-#import eastwood.clint.house
+import eastwood.clint.house
 #import eastwood.clint.small
 #import eastwood.clint.large
 #import eastwood.clint.story

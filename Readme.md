@@ -26,7 +26,8 @@ This will show you the help menu, with each possible action listed at the bottom
 ```
 $ ./scripts/ops.py --help
 
-usage: ops.py [-h] {think,water} ...
+
+usage: ops.py [-h] {think,water,house} ...
 
     Grand central dispatch for Eastwood operations
    
@@ -48,14 +49,16 @@ MMMMMMMMb.         d8MM8tt8MM
     
 
 positional arguments:
-  {think,water}
-    think        
-                 Do a think
-    water        
-                 Water something
+  {think,water,house}
+    think              
+                       Do a think
+    water              
+                       Water something
+    house              
+                       Get back in the house
 
 options:
-  -h, --help     show this help message and exit
+  -h, --help           show this help message and exit
 ```
 
 

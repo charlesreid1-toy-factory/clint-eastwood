@@ -41,5 +41,5 @@ def house_pssst(argv, args):
     msg = "pssst, get back in the house"
     if args.quiet:
         print(msg.lower())
-    if args.quiet:
+    else:
         print(msg.upper())
