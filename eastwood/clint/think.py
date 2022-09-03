@@ -4,6 +4,7 @@ Do a think
 import os
 import sys
 import json
+import random
 import logging
 import argparse
 
@@ -38,7 +39,7 @@ quiet_flag_options = dict(
     "civic",
     arguments={
         "--json": json_flag_options,
-        "--reverse": dict(
+        "--ascending": dict(
             default=False,
             action="store_true",
             help="Show the results from low to high instead of high to low."
@@ -53,12 +54,12 @@ def think_civic(argv, args):
     for _ in range(10):
         rolls.append(random.randint(1,6))
     rolls.sort()
-    if args.reverse:
+    if not args.ascending:
         rolls.reverse()
     if args.json is True:
         print(json.dumps(rolls, indent=4))
     else:
-        print(",".join(rolls))
+        print(",".join([str(j) for j in rolls]))
 
 
 @think.action(
@@ -71,6 +72,11 @@ def think_civic(argv, args):
             action="store_true",
             help="Show the results in random order instead of high to low."
         ),
+        "--ascending": dict(
+            default=False,
+            action="store_true",
+            help="Show the results from low to high instead of high to low."
+        ),
         "--outfile": dict(
             required=False, 
             type=str, 
@@ -80,11 +86,11 @@ def think_civic(argv, args):
 )
 def think_rotor(argv, args):
     """
-    Do a think, rotor like. Roll 10 die and show the top three,
-    after reading the contents of the Readme file first.
+    Do a think, rotor like. Roll 10 die and show the top three in descending order,
+    after reading the contents of the repository's Readme file first.
     """
     # Simple demonstration of how to use the helper classes below
-    think_check = ThinkChecker()
+    think_check = ThinkChecker(get_movie())
     think_help = ThinkHelper()
     _ = think_help.fetch_readme_contents()
 
@@ -92,10 +98,16 @@ def think_rotor(argv, args):
     rolls = []
     for _ in range(10):
         rolls.append(random.randint(1,6))
+
     rolls.sort()
+    rolls.reverse()
     top = rolls[:3]
-    if _random:
+
+    if args._random:
         random.shuffle(top)
+    else:
+        if args.ascending:
+            top.reverse()
 
     # Swap stdout with outfile, if one is specified
     if args.outfile:
@@ -103,7 +115,7 @@ def think_rotor(argv, args):
     if args.json is True:
         print(json.dumps(top, indent=4))
     else:
-        print(",".join(top))
+        print(",".join([str(j) for j in top]))
     if args.outfile:
         sys.stdout = sys.__stdout__
 
@@ -173,7 +185,7 @@ class ThinkHelper(object):
         Fetch the contents of the Readme file in the root directory of the repository
         """
         root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-        readme_contents = self.run_cmd(cmd=f'cat Readme.md', cwd=root_dir)
+        readme_contents = run_cmd(cmd=f'cat Readme.md', cwd=root_dir)
         if not readme_contents:
             print(f'output of "cat Readme.md" returned nothing.'
                   f'check that Readme.md exists.\n\n')
