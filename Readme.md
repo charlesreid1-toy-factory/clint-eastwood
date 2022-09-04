@@ -62,6 +62,18 @@ options:
 ```
 
 
+## Environment Files
+
+There are several environment variables used by the operations script.
+
+The provided `environment.example` file shows an example of how to set
+those environment variable values.
+
+Copy `environment.example` to `environment`, and edit the environment
+variable values. When finished, run `source environment` before running
+the operations script.
+
+
 ## Tests
 
 Tests can be run with pytest:
