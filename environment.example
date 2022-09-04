@@ -1,0 +1,7 @@
+#!/bin/bash
+set -a
+
+CLINT_EASTWOOD_BEVERAGE="water"
+CLINT_EASTWOOD_LOCATION="127.0.0.1"
+CLINT_EASTWOOD_MOVIE="dirty harry"
+CLINT_EASTWOOD_TEST_MODE="standalone"
