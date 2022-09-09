@@ -1,0 +1,4 @@
+flake8 >= 3.4.1
+coverage >= 4.4.1
+httpie >= 1.0.3
+yq >= 2.3.3

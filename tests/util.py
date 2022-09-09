@@ -1,6 +1,7 @@
 import os
 import sys
 import random
+import string
 from io import StringIO
 
 
@@ -10,6 +11,7 @@ class CaptureStdout(list):
     of Python code. Subclass of list so that you can access stdout lines like a
     list.
     """
+
     def __init__(self, *args, **kwargs):
         super().__init__()
 
@@ -42,13 +44,17 @@ class CaptureStdout(list):
         # up this context
         sys.stdout = self._stdout
 
+
 class SwapStdin(object):
     """Utility object using a context manager to swap out stdin with user-provided data."""
+
     def __init__(self, swap_with):
         if swap_with is None:
-            raise RuntimeError("Error: SwapStdin constructor must be provided with a value to substitute for stdin!")
+            raise RuntimeError(
+                "Error: SwapStdin constructor must be provided with a value to substitute for stdin!"
+            )
         elif isinstance(swap_with, type("")):
-            swap_with = bytes(swap_with, 'utf-8')
+            swap_with = bytes(swap_with, "utf-8")
         self.swap_with = swap_with
 
     def __enter__(self, *args, **kwargs):
@@ -70,12 +76,10 @@ class SwapStdin(object):
 
 
 def random_alphanumeric_string(N=10):
-    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=N))
+    return "".join(random.choices(string.ascii_uppercase + string.digits, k=N))
 
 
 def get_env(varname):
     if varname not in os.environ:
-        raise RuntimeError(
-            "Please set the {} environment variable".format(varname))
+        raise RuntimeError("Please set the {} environment variable".format(varname))
     return os.environ[varname]
-
