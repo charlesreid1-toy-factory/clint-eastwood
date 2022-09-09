@@ -3,13 +3,23 @@
 ![Clint Eastwood](img/clint.jpg)
 
 This repository is a demonstration of how to implement an
-object-oriented command line tool, with tests, in Python.
+object-oriented command line tool with Python,
+and add tests with unittest and coverage.
 
 
 ## Quick Start
 
-The main script is at `scripts/ops.py`. It can be run through Python,
-or just run directly. Basic usage is:
+Before you begin, you will need to set up environment variables:
+
+```
+cp environment.example environment
+```
+
+Edit environment to set the variable values.
+
+The main operations script is at `scripts/ops.py`.
+It can be run through Python, or just run directly.
+Basic usage is:
 
 ```
 ./scripts/ops.py <action>
@@ -21,7 +31,7 @@ To get help:
 ./scripts/ops.py --help 
 ```
 
-This will show you the help menu, with each possible action listed at the bottom.
+This will show you the help menu:
 
 ```
 $ ./scripts/ops.py --help
@@ -62,24 +72,34 @@ options:
 ```
 
 
-## Environment Files
+## Running Tests
 
-There are several environment variables used by the operations script.
-
-The provided `environment.example` file shows an example of how to set
-those environment variable values.
-
-Copy `environment.example` to `environment`, and edit the environment
-variable values. When finished, run `source environment` before running
-the operations script.
-
-
-## Tests
-
-Tests can be run with pytest:
+Use `make test` to run tests. This runs the tests via
+the coverage tool, and prints a code coverage report.
 
 ```
-pytest -vs tests/
+$ make test
+
+/Library/Developer/CommandLineTools/usr/bin/make -j1 tests/test_operations.py
+flake8 tests
+coverage run -p --source=eastwood tests/test_operations.py
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.006s
+
+OK
+coverage combine
+Combined data file .coverage.aptos.14785.069198
+coverage report
+Name                         Stmts   Miss  Cover
+------------------------------------------------
+eastwood/clint/__init__.py      55      6    89%
+eastwood/clint/house.py         19      6    68%
+eastwood/clint/think.py         77     53    31%
+eastwood/clint/util.py          27     17    37%
+eastwood/clint/water.py         19      6    68%
+------------------------------------------------
+TOTAL                          197     88    55%
 ```
 
 
@@ -97,11 +117,31 @@ There are two main directories:
       tool's flags, options, behavior, and logic.
 
 * `tests/` directory:
-    * `tests/test_clint.py`
-    * `tests/test_clint_think.py`
-    * `tests/test_clint_house.py`
-    * `tests/test_clint_water.py`
-    * `tests/test_clint_utils.py`
+    * `tests/test_operations.py`
+
+
+### Environment File
+
+There are several environment variables used by the operations script.
+
+The pattern we provide for managing environment variables, which can
+sometimes contain sensitive information, is to define them in a file
+`environment`, and have the user run this command from the repo
+before running any other actions:
+
+```
+source environment
+```
+
+The `environment` file is not under version control, to prevent sensitive
+information from ending up in a git repository. Instead, we provide
+an `environment.example` file:
+
+```
+cp environment.example environment
+
+# Edit environment
+```
 
 
 ## What is the point of this example?
@@ -120,12 +160,11 @@ The point is twofold:
 
 ## What is not included in this example?
 
-Thisexample can be taken a step further.
+This pattern - the operations script - is like a layer that can
+go on top of an existing library. The `eastwood` directory does not
+contain a full library, but it easily could. Likewise, some tests
+would test core `eastwood` library functionality, while other
+tests would only test the operational command line tool.
 
-The pattern that we are providing in this repository can be thought of as
-an additional operations layer that can be added alongside an existing
-library. This is useful for any software library that also has associated
-infrastructure, and operational tooling is required to manage or interact
-with existing resources, create new resources, or remove resources.
-
-
+This is useful for a software library that is being deployed
+along with infrastructure.
