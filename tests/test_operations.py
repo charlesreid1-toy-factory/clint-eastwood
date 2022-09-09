@@ -24,7 +24,7 @@ sys.path.insert(0, pkg_root)  # noqa
 
 # from tests.util import CaptureStdout, SwapStdin
 # from tests import skip_on_travis
-from tests.infra import testmode
+# from tests.infra import testmode
 
 from eastwood.clint import EastwoodOperationsCommandDispatch
 from eastwood.clint import think, water, house
@@ -34,7 +34,6 @@ def setUpModule():
     pass
 
 
-@testmode.standalone
 class TestOperations(unittest.TestCase):
     def test_dispatch(self):
         with self.subTest("dispatch without mutually exclusive arguments"):
