@@ -18,6 +18,6 @@ test:
 # A pattern rule that runs a single test script
 #
 $(tests): %.py : lint
-	coverage run -p --source=src $*.py
+	coverage run -p --source=eastwood $*.py
 
 .PHONY: all lint test safe_test serial_test all_test $(tests)
