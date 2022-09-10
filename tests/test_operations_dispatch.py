@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
 import io
 import os
 import sys
@@ -27,14 +24,13 @@ sys.path.insert(0, pkg_root)  # noqa
 # from tests.infra import testmode
 
 from eastwood.clint import EastwoodOperationsCommandDispatch
-from eastwood.clint import movies
 
 
 def setUpModule():
     pass
 
 
-class TestOperations(unittest.TestCase):
+class TestOperationsDispatch(unittest.TestCase):
     def test_dispatch(self):
         with self.subTest("dispatch without mutually exclusive arguments"):
             self._test_dispatch()
