@@ -31,30 +31,46 @@ from eastwood.clint import movies
 class TestOperationsMovies(unittest.TestCase):
     def test_movies(self):
         # Each subcommand has identical flags
-        subcommands = ["western", "crime", "biography"]
+        subcommands = ["westerns", "crime", "biography"]
 
         known_movies = {
-            "western": ["High Plains Drifter", "Unforgiven"],
+            "westerns": ["High Plains Drifter", "Unforgiven"],
             "crime": ["Mystic River", "Dirty Harry"],
             "biography": ["Bird", "Sully"],
         }
 
         for sub in subcommands:
-            argv = []
+            with self.subTest(f"testing operations script, movies command, {sub} subcommand"):
 
-            # Plain formatting first
-            args = argparse.Namespace(json=False, sort=False)
-            # Get the function handle corresponding to this CLI call
-            f = getattr(movies, sub)
-            with CaptureStdout as output:
-                f(argv, args)
+                argv = []
 
-            for known_movie in known_movies[sub]:
-                self.assertIn(known_movie, output)
+                # Get the function handle corresponding to this CLI call
+                f = getattr(movies, f"movies_{sub}")
 
-            # Check when json flag added we get json back
-            # Check that if we ask for sorted,
-            #  then return and sorted is the same as returned
+                # Plain formatting first
+                args = argparse.Namespace(_json=False, _sort=False)
+                with CaptureStdout() as output:
+                    f(argv, args)
+                for known_movie in known_movies[sub]:
+                    self.assertIn(known_movie, output)
+
+                # Check when json flag added we get json back
+                args = argparse.Namespace(_json=True, _sort=False)
+                with CaptureStdout() as output:
+                    f(argv, args)
+                result = json.loads("".join(output))
+                self.assertGreater(len(result), 0)
+
+                # Check that if we ask for sorted,
+                #  then return and sorted is the same as returned
+                args = argparse.Namespace(_json=False, _sort=True)
+                with CaptureStdout() as output:
+                    f(argv, args)
+
+                # Ensure empty lines are discarded
+                output = [o for o in output if len(o) > 0]
+                output_sorted = sorted(output)
+                self.assertListEqual(output, output_sorted)
 
 
 #                with SwapStdin(testvar_value):
@@ -80,3 +96,7 @@ class TestOperationsMovies(unittest.TestCase):
 #                      },
 #                  )
 #                  def set_secret(argv: typing.List[str], args: argparse.Namespace):
+
+
+if __name__ == "__main__":
+    unittest.main()
