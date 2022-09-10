@@ -1,9 +1,9 @@
 """
-This file provides an interface to build the Eastwood operations CLI, parts of which may be
-executed "in the cloud", via Lambda-SQS integration.
+This file provides an interface to build the Eastwood operations CLI.
 
-Commands are defined with a target-action model. While command arguments configured at the
-target level are moved into the action arguments.
+Commands are defined with a target-action model.
+
+Command arguments configured at the target level are moved into the action arguments.
 
 e.g
 ```
