@@ -48,7 +48,7 @@ def movies_westerns(argv, args):
     if args._sort:
         westerns.sort()
     if args._json:
-        print(json.dumps(western, indent=4))
+        print(json.dumps(westerns, indent=4))
     else:
         print()
         print("\n".join(westerns))
@@ -78,7 +78,7 @@ def movies_crime(argv, args):
     if args._sort:
         crimes.sort()
     if args._json:
-        print(json.dumps(crime, indent=4))
+        print(json.dumps(crimes, indent=4))
     else:
         print()
         print("\n".join(crimes))
