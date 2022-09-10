@@ -11,10 +11,10 @@ sys.path.insert(0, pkg_root)  # noqa
 
 import eastwood
 import eastwood.clint.movies
-import eastwood.clint.characters
-import eastwood.clint.producer
-import eastwood.clint.quotes
-import eastwood.clint.facts
+#import eastwood.clint.characters
+#import eastwood.clint.producer
+#import eastwood.clint.quotes
+#import eastwood.clint.facts
 
 from eastwood.clint import dispatch
 

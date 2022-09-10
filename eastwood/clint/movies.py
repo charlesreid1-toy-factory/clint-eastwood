@@ -45,12 +45,12 @@ def movies_westerns(argv, args):
         "A Fistful of Dollars",
         "For a Few Dollars More",
     ]
-    if _sort:
+    if args._sort:
         westerns.sort()
-    if _json:
+    if args._json:
         print(json.dumps(western, indent=4))
     else:
         print()
-        print("\n".join(western))
+        print("\n".join(westerns))
         print()
 
