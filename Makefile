@@ -20,7 +20,9 @@ test:
 #
 $(tests): %.py : lint
 	coverage run -p --source=eastwood $*.py
+
+coverage:
 	coverage combine
 	coverage report
 
-.PHONY: all lint test safe_test serial_test all_test $(tests)
+.PHONY: all lint test $(tests)

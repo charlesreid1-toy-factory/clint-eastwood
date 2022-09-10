@@ -10,16 +10,11 @@ pkg_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))  # noq
 sys.path.insert(0, pkg_root)  # noqa
 
 import eastwood
-import eastwood.clint.think
-import eastwood.clint.water
-import eastwood.clint.house
-
-# import eastwood.clint.small
-# import eastwood.clint.large
-# import eastwood.clint.story
-# import eastwood.clint.power
-# import eastwood.clint.above
-# import eastwood.clint.below
+import eastwood.clint.movies
+import eastwood.clint.characters
+import eastwood.clint.producer
+import eastwood.clint.quotes
+import eastwood.clint.facts
 
 from eastwood.clint import dispatch
 

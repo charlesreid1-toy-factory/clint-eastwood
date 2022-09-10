@@ -27,7 +27,7 @@ sys.path.insert(0, pkg_root)  # noqa
 # from tests.infra import testmode
 
 from eastwood.clint import EastwoodOperationsCommandDispatch
-from eastwood.clint import think, water, house
+from eastwood.clint import movies
 
 
 def setUpModule():

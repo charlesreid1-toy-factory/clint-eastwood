@@ -6,17 +6,18 @@ Commands are defined with a target-action model.
 Command arguments configured at the target level are moved into the action arguments.
 
 e.g
+
 ```
-dispatch = EastwoodOperationsCommandDispatch()
+dispatch = CommandDispatch()
 
-storage = dispatch.target("storage", arguments={"--replica": dict(choices=["dev", "integration", "staging", "prod"])})
+foo = dispatch.target("foo", arguments={"--mode": dict(choices=["interactive", "automatic"])})
 
-@storage.action("verify-referential-integrity")
-def verify_ref_integrity(argv, args):
+@foo.action("bar")
+def bar(argv, args):
     ...
 
 # execution:
-scripts/ops.py storage verify-referential-integrity --replica staging
+scripts/ops.py foo bar --mode interactive
 ```
 """
 import os
