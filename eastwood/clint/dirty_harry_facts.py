@@ -48,7 +48,7 @@ def print_facts(argv, args, descr, facts):
         "--shout": shout_flag_options,
     },
 )
-def dhfacts_partner(argv, args):
+def facts_partner(argv, args):
     """
     Facts about Dirty Harry's partner
     """
@@ -73,7 +73,7 @@ def dhfacts_partner(argv, args):
         "--shout": shout_flag_options,
     },
 )
-def dhfacts_zoom(argv, args):
+def facts_zoom(argv, args):
     """
     Facts about zooming in during Dirty Harry films
     """
@@ -89,13 +89,13 @@ def dhfacts_zoom(argv, args):
 
 
 @facts.action(
-    "five-minutes",
+    "fivemin",
     arguments={
         "--json": json_flag_options,
         "--shout": shout_flag_options,
     },
 )
-def dhfacts_fiveminutes(argv, args):
+def facts_fivemin(argv, args):
     """
     Facts about the first five minutes of Dirty Harry films
     """
@@ -117,7 +117,7 @@ def dhfacts_fiveminutes(argv, args):
         "--shout": shout_flag_options,
     },
 )
-def dhfacts_water(argv, args):
+def facts_water(argv, args):
     """
     Facts about bodies of water in the Dirty Harry films
     """
