@@ -31,7 +31,7 @@ import traceback
 logger = logging.getLogger(__name__)
 
 
-class _target:
+class _Target:
     def __init__(self, target_name, dispatcher):
         self.target_name = target_name
         self.dispatcher = dispatcher
@@ -114,8 +114,11 @@ MMMMMMMMb.         d8MM8tt8MM
     actions: dict = dict()
 
     def __init__(self):
+        # Don't add help to this arg parser, because we will add our own
         self.parser = argparse.ArgumentParser(description=self.__doc__, formatter_class=RawTextHelpFormatter, add_help=False)
-        self.parser.add_argument('--help', action=_HelpAction, help='help for help if you need some help')  # add custom help
+        # Add custom help action to our arg parser
+        self.parser.add_argument('--help', action=_HelpAction, help='Show this help message and exit')  # add custom help
+        # Now create a target that subparsers for actions can attach themselves to
         self.parser_targets = self.parser.add_subparsers()
 
     def target(self, name: str, *, arguments: dict=None, mutually_exclusive: list=None, help=None):
@@ -124,7 +127,7 @@ MMMMMMMMb.         d8MM8tt8MM
         self.targets[name] = dict(subparser=target.add_subparsers(),
                                   arguments=arguments,
                                   mutually_exclusive=mutually_exclusive)
-        return _target(name, self)
+        return _Target(name, self)
 
     def __call__(self, argv):
         try:
