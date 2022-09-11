@@ -28,6 +28,7 @@ shout_flag_options = dict(
 
 def print_facts(argv, args, descr, facts):
     if args._shout:
+        descr = descr.upper()
         facts = [f.upper() for f in facts]
     if args._json:
         data = dict(descr=descr, facts=facts)
@@ -37,7 +38,7 @@ def print_facts(argv, args, descr, facts):
         print(descr)
         print()
         for fact in facts:
-            print(f" - {facts}")
+            print(f" - {fact}")
         print()
 
 
