@@ -34,13 +34,11 @@ To get help:
 This will show you the help menu:
 
 ```
-$ ./scripts/ops.py --help
-
-
-usage: ops.py [-h] {think,water,house} ...
+$ ./scripts/ops.py
+usage: ops.py [-h] {movies,dirty-harry-facts,characters,producer} ...
 
     Grand central dispatch for Eastwood operations
-   
+
                               .
                         .MMMMMP    Go ahead. Make my day.
                       .MM888MM
@@ -55,51 +53,78 @@ MMMMMMMMb.         d8MM8tt8MM
      MM8ttt88MM" " "MMNICKMM"
      3M88888MM"      "MMMP"
       "MNICKM"
-   
-    
+
+
 
 positional arguments:
-  {think,water,house}
-    think              
-                       Do a think
-    water              
-                       Water something
-    house              
-                       Get back in the house
+  {movies,dirty-harry-facts,characters,producer}
+    movies
+                        Movies starting Clint Eastwood
+    dirty-harry-facts
+                        Facts about Dirty Harry (via clinteastwood.net)
+    characters
+                        Characters that Clint Eastwood has played
+    producer
+                        Movies that Clint Eastwood has produced
 
-options:
-  -h, --help           show this help message and exit
+optional arguments:
+  -h, --help            show this help message and exit
 ```
 
 
 ## Running Tests
 
-Use `make test` to run tests. This runs the tests via
-the coverage tool, and prints a code coverage report.
+Use `make test` to run tests. This runs the tests via the coverage.py tool:
 
 ```
 $ make test
-
-/Library/Developer/CommandLineTools/usr/bin/make -j1 tests/test_operations.py
+/Library/Developer/CommandLineTools/usr/bin/make -j1 tests/test_operations_dispatch.py tests/test_operations_facts.py tests/test_operations_movies.py
 flake8 tests
-coverage run -p --source=eastwood tests/test_operations.py
+coverage run -p --source=eastwood tests/test_operations_dispatch.py
 .
 ----------------------------------------------------------------------
-Ran 1 test in 0.006s
+Ran 1 test in 0.005s
 
 OK
+coverage run -p --source=eastwood tests/test_operations_facts.py
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+coverage run -p --source=eastwood tests/test_operations_movies.py
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+```
+
+Use `make coverage` to print a code coverage reoport:
+
+```
+$ make coverage
 coverage combine
-Combined data file .coverage.aptos.14785.069198
+Combined data file .coverage.aptos.43424.252373
+Combined data file .coverage.aptos.43425.753329
+Combined data file .coverage.aptos.39915.988536
+Combined data file .coverage.aptos.39914.274878
+Combined data file .coverage.aptos.43423.645311
+Combined data file .coverage.aptos.39916.541310
+Combined data file .coverage.aptos.44633.985633
+Combined data file .coverage.aptos.44634.956163
+Combined data file .coverage.aptos.44635.326438
 coverage report
-Name                         Stmts   Miss  Cover
-------------------------------------------------
-eastwood/clint/__init__.py      55      6    89%
-eastwood/clint/house.py         19      6    68%
-eastwood/clint/think.py         77     53    31%
-eastwood/clint/util.py          27     17    37%
-eastwood/clint/water.py         19      6    68%
-------------------------------------------------
-TOTAL                          197     88    55%
+Name                                  Stmts   Miss  Cover
+---------------------------------------------------------
+eastwood/clint/__init__.py               55      6    89%
+eastwood/clint/characters.py             29     29     0%
+eastwood/clint/dirty_harry_facts.py      44      0   100%
+eastwood/clint/movies.py                 41      0   100%
+eastwood/clint/producer.py               29     29     0%
+eastwood/clint/util.py                   27     27     0%
+---------------------------------------------------------
+TOTAL                                   225     91    60%
 ```
 
 
@@ -122,7 +147,7 @@ There are two main directories:
 
 ### Environment File
 
-There are several environment variables used by the operations script.
+Some environment variables may need to be used by the operations script.
 
 The pattern we provide for managing environment variables, which can
 sometimes contain sensitive information, is to define them in a file
@@ -141,6 +166,8 @@ an `environment.example` file:
 cp environment.example environment
 
 # Edit environment
+
+source environment
 ```
 
 
@@ -168,3 +195,89 @@ tests would only test the operational command line tool.
 
 This is useful for a software library that is being deployed
 along with infrastructure.
+
+## Command Reference
+
+### Movies
+
+```
+$ ./scripts/ops.py movies --help
+usage: ops.py movies [-h] {westerns,crime,biography} ...
+
+positional arguments:
+  {westerns,crime,biography}
+    westerns            Western movies starring Clint Eastwood
+    crime               Crime movies starring Clint Eastwood
+    biography           Biography movies starring Clint Eastwood
+
+optional arguments:
+  -h, --help            show this help message and exit
+```
+
+Each subcommand has optional arguments as well:
+
+```
+$ ./scripts/ops.py movies crime --help
+usage: ops.py movies crime [-h] [--json] [--sort]
+
+optional arguments:
+  -h, --help  show this help message and exit
+  --json      format the output as JSON if this flag is present
+  --sort      sort the names of movies being printed
+```
+
+### Dirty Harry Facts
+
+```
+$ ./scripts/ops.py dirty-harry-facts --help
+usage: ops.py dirty-harry-facts [-h] {partner,zoom,fivemin,water} ...
+
+positional arguments:
+  {partner,zoom,fivemin,water}
+    partner             Facts about Dirty Harry's partner
+    zoom                Facts about zooming in during Dirty Harry films
+    fivemin             Facts about the first five minutes of Dirty Harry
+                        films
+    water               Facts about bodies of water in the Dirty Harry films
+
+optional arguments:
+  -h, --help            show this help message and exit
+```
+
+### Characters
+
+```
+$ ./scripts/ops.py characters --help
+usage: ops.py characters [-h] {westerns,calahan} ...
+
+positional arguments:
+  {westerns,calahan}
+    westerns          Characters in Western movies played by Clint Eastwood
+    calahan           Movies starring Clint Eastwood as Inspector Harry
+                      Calahan
+
+optional arguments:
+  -h, --help          show this help message and exit
+```
+
+### Producer
+
+```
+$ ./scripts/ops.py producer --help
+usage: ops.py producer [-h] {non-executive,executive} ...
+
+positional arguments:
+  {non-executive,executive}
+    non-executive       Clint Eastwood was listed as a Non-Executive Producer
+                        on these films
+    executive           Clint Eastwood was listed as an Executive Producer on
+                        these films
+
+optional arguments:
+  -h, --help            show this help message and exit
+```
+
+
+
+
+
