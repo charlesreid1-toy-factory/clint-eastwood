@@ -11,6 +11,7 @@ sys.path.insert(0, pkg_root)  # noqa
 
 import eastwood
 import eastwood.clint.movies
+import eastwood.clint.dirty_harry_facts
 #import eastwood.clint.characters
 #import eastwood.clint.producer
 #import eastwood.clint.quotes
