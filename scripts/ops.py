@@ -13,9 +13,7 @@ import eastwood
 import eastwood.clint.movies
 import eastwood.clint.dirty_harry_facts
 import eastwood.clint.characters
-#import eastwood.clint.producer
-#import eastwood.clint.quotes
-#import eastwood.clint.facts
+import eastwood.clint.producer
 
 from eastwood.clint import dispatch
 
