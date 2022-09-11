@@ -35,13 +35,13 @@ Basic usage is:
 ./scripts/ops.py <action>
 ```
 
-To get help:
+To get help, just run the script with no arguments:
 
 ```
-./scripts/ops.py --help 
+./scripts/ops.py
 ```
 
-This will show you the help menu:
+This will show you the short help menu:
 
 ```
 $ ./scripts/ops.py
@@ -78,8 +78,10 @@ positional arguments:
                         Movies that Clint Eastwood has produced
 
 optional arguments:
-  -h, --help            show this help message and exit
+  -h, --help            Show this help message and exit
 ```
+
+For a longer help menu, run the script with the `--help` flag.
 
 
 ## Running Tests
@@ -208,8 +210,7 @@ along with infrastructure.
 
 ## Full Help Reference
 
-Running with the `--help` flag will print help for all subcommands
-in one go:
+Running with the `--help` flag will print help for all subcommands at once:
 
 ```
 $ ./scripts/ops.py --help
