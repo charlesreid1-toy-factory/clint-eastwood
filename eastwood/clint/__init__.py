@@ -21,6 +21,7 @@ scripts/ops.py foo bar --mode interactive
 ```
 """
 import os
+import sys
 import logging
 import argparse
 from argparse import RawTextHelpFormatter
@@ -62,6 +63,33 @@ class _target:
             return obj
         return register_action
 
+
+class _HelpAction(argparse._HelpAction):
+    """
+    This class was helpfully provided here: https://stackoverflow.com/a/24122778
+    """
+
+    def __call__(self, parser, namespace, values, option_string=None):
+        parser.print_help()
+
+        # retrieve subparsers from parser
+        subparsers_actions = [
+            action for action in parser._actions
+            if isinstance(action, argparse._SubParsersAction)]
+        # there will probably only be one subparser_action,
+        # but better save than sorry
+        for subparsers_action in subparsers_actions:
+            # get all subparsers and print help
+            for choice, subparser in subparsers_action.choices.items():
+                print()
+                print("="*40)
+                print("Eastwood Operation: '{}'".format(choice))
+                print()
+                print(subparser.format_help())
+
+        parser.exit()
+
+
 class EastwoodOperationsCommandDispatch:
     """
     Grand central dispatch for Eastwood operations
@@ -86,7 +114,8 @@ MMMMMMMMb.         d8MM8tt8MM
     actions: dict = dict()
 
     def __init__(self):
-        self.parser = argparse.ArgumentParser(description=self.__doc__, formatter_class=RawTextHelpFormatter)
+        self.parser = argparse.ArgumentParser(description=self.__doc__, formatter_class=RawTextHelpFormatter, add_help=False)
+        self.parser.add_argument('--help', action=_HelpAction, help='help for help if you need some help')  # add custom help
         self.parser_targets = self.parser.add_subparsers()
 
     def target(self, name: str, *, arguments: dict=None, mutually_exclusive: list=None, help=None):
@@ -99,6 +128,11 @@ MMMMMMMMb.         d8MM8tt8MM
 
     def __call__(self, argv):
         try:
+            # If user does not provide any args on command line, print help and exit
+            if len(sys.argv)==1:
+                self.parser.print_help()
+                sys.exit(1)
+
             args = self.parser.parse_args(argv)
             action_handler = args.func(argv, args) if isinstance(args.func, type) else args.func
             try:
