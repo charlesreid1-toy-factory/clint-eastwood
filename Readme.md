@@ -1,5 +1,15 @@
 # clint-eastwood
 
+<img alt="version-0.1.0" src="https://img.shields.io/badge/version-0.1.0-orange" />
+
+<img 
+alt="tests-unittest" src="https://img.shields.io/badge/tests-unittest-green" /><img 
+alt="tests-coverage" src="https://img.shields.io/badge/tests-coverage-green" />
+
+<img alt="codestyle-flake8" src="https://img.shields.io/badge/codestyle-flake8-blue" />
+
+<img alt="python-3.10" src="https://img.shields.io/badge/python-3.10-blue" />
+
 ![Clint Eastwood](img/clint.jpg)
 
 This repository is a demonstration of how to implement an
@@ -196,12 +206,52 @@ tests would only test the operational command line tool.
 This is useful for a software library that is being deployed
 along with infrastructure.
 
-## Command Reference
+## Full Help Reference
 
-### Movies
+Running with the `--help` flag will print help for all subcommands
+in one go:
 
 ```
-$ ./scripts/ops.py movies --help
+$ ./scripts/ops.py --help
+
+usage: ops.py [--help] {movies,dirty-harry-facts,characters,producer} ...
+
+    Grand central dispatch for Eastwood operations
+   
+                              .
+                        .MMMMMP    Go ahead. Make my day.
+                      .MM888MM
+....                .MM88888MP
+MMMMMMMMb.         d8MM8tt8MM
+ MM88888MMMMc `:' dMME8ttt8MM
+  MM88tt888EMMc:dMM8E88tt88MP
+   MM8ttt888EEM8MMEEE8E888MC
+   `MM888t8EEEM8MMEEE8t8888Mb
+    "MM88888tEM8"MME88ttt88MM
+     dM88ttt8EM8"MMM888ttt8MM
+     MM8ttt88MM" " "MMNICKMM"
+     3M88888MM"      "MMMP"
+      "MNICKM"
+   
+    
+
+positional arguments:
+  {movies,dirty-harry-facts,characters,producer}
+    movies              
+                        Movies starting Clint Eastwood
+    dirty-harry-facts   
+                        Facts about Dirty Harry (via clinteastwood.net)
+    characters          
+                        Characters that Clint Eastwood has played
+    producer            
+                        Movies that Clint Eastwood has produced
+
+optional arguments:
+  --help                Show this help message and exit
+
+========================================
+Eastwood Operation: 'movies'
+
 usage: ops.py movies [-h] {westerns,crime,biography} ...
 
 positional arguments:
@@ -212,24 +262,11 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
-```
 
-Each subcommand has optional arguments as well:
 
-```
-$ ./scripts/ops.py movies crime --help
-usage: ops.py movies crime [-h] [--json] [--sort]
+========================================
+Eastwood Operation: 'dirty-harry-facts'
 
-optional arguments:
-  -h, --help  show this help message and exit
-  --json      format the output as JSON if this flag is present
-  --sort      sort the names of movies being printed
-```
-
-### Dirty Harry Facts
-
-```
-$ ./scripts/ops.py dirty-harry-facts --help
 usage: ops.py dirty-harry-facts [-h] {partner,zoom,fivemin,water} ...
 
 positional arguments:
@@ -242,12 +279,11 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
-```
 
-### Characters
 
-```
-$ ./scripts/ops.py characters --help
+========================================
+Eastwood Operation: 'characters'
+
 usage: ops.py characters [-h] {westerns,calahan} ...
 
 positional arguments:
@@ -258,12 +294,11 @@ positional arguments:
 
 optional arguments:
   -h, --help          show this help message and exit
-```
 
-### Producer
 
-```
-$ ./scripts/ops.py producer --help
+========================================
+Eastwood Operation: 'producer'
+
 usage: ops.py producer [-h] {non-executive,executive} ...
 
 positional arguments:
@@ -276,8 +311,4 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
 ```
-
-
-
-
 
